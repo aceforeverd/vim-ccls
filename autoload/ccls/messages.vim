@@ -124,9 +124,16 @@ function! s:make_tree(method, extra_params, data) abort
     let l:filetype = &filetype
     let l:calling_buffer = bufnr('%')
 
-    call yggdrasil#tree#new(g:ccls_size,
-    \                       g:ccls_position,
-    \                       g:ccls_orientation)
+    try
+        call yggdrasil#tree#new(g:ccls_size,
+        \                       g:ccls_position,
+        \                       g:ccls_orientation)
+    endtry
+
+    if !exists('*yggdrasil#tree#new')
+        call ccls#util#warning('The vim-yggdrasil plugin is required to use this command')
+        return
+    endif
 
     " Store additional information in the tree structure
     " to avoid having too many arguments in the callbacks

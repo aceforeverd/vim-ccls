@@ -16,9 +16,10 @@ features. Currently supported LSP clients are:
 * [vim-lsc](https://github.com/natebosch/vim-lsc)
 * [vim-lsp](https://github.com/prabirshrestha/vim-lsp)
 
-The plugin implements a tree viewer to display call, inheritance, and member
-hierarchies. Trees are built lazily, fetching children only when it is needed
-to expand a sub-tree, allowing to handle large trees.
+The plugin uses [vim-yggdrasil](https://github.com/m-pilia/vim-yggdrasil) to
+display call, inheritance, and member hierarchies. Trees are built lazily,
+fetching children only when it is needed to expand a sub-tree, allowing to
+handle large trees.
 
 The call hierarchy allows to visualise a tree of functions calling the function
 under the cursor (analogous to the Call Hierarchy View in Eclipse). Similarly,
@@ -36,9 +37,13 @@ the cursor.
 Installation
 ============
 
-This plugin can be installed with any vim plugin manager. One of the supported
-Language Server clients listed above needs to be installed and properly
-configured with ccls as language server in order for it to work.
+This plugin can be installed with any vim plugin manager. The
+[vim-yggdrasil](https://github.com/m-pilia/vim-yggdrasil) is a dependency and
+must be installed for hierarchy commands to work.
+
+One of the supported Language Server clients listed above needs to be installed
+and properly configured with ccls as language server in order for this plugin
+to work.
 
 If you have not done it already,
 [build](https://github.com/MaskRay/ccls/wiki/Build) and
@@ -107,30 +112,8 @@ let g:ccls_position = 'botright'
 let g:ccls_orientation = 'horizontal'
 ```
 
-The following `<Plug>` mappings are available to interact with a tree buffer:
-```
-<Plug>(yggdrasil-toggle-node)
-<Plug>(yggdrasil-open-node)
-<Plug>(yggdrasil-close-node)
-<Plug>(yggdrasil-open-subtree)
-<Plug>(yggdrasil-close-subtree)
-<Plug>(yggdrasil-execute-node)
-```
-
-The default key bindings are:
-```vim
-nmap <silent> <buffer> o    <Plug>(yggdrasil-toggle-node)
-nmap <silent> <buffer> O    <Plug>(yggdrasil-open-subtree)
-nmap <silent> <buffer> C    <Plug>(yggdrasil-close-subtree)
-nmap <silent> <buffer> <cr> <Plug>(yggdrasil-execute-node)
-nnoremap <silent> <buffer> q :q<cr>
-```
-
-They can be disabled and replaced with custom mappings:
-```vim
-let g:yggdrasil_no_default_maps = 1
-au FileType yggdrasil nmap <silent> <buffer> o <Plug>(yggdrasil-toggle-node)
-```
+For default and custom key mappings to navigate the tree, please refer to
+|yggdrasil-mappings|.
 
 Debugging
 =========
